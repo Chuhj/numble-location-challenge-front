@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import axiosInstance from '../../api/config/axios';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
 import ContentsArea from '../../common/components/ContentsArea';
 import FirstForm from './FirstForm';
