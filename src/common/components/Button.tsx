@@ -22,7 +22,8 @@ export default function Button({
 }
 
 const ButtonWrapper = styled.button<ButtonProps>`
-  width: 100%;
+  width: 100vw;
+  max-width: 720px;
   ${({ size }) => {
     if (size === 'large')
       return css`
