@@ -7,7 +7,13 @@ interface ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Button({ children, size = 'large', disabled = false, onClick, ...props }: ButtonProps) {
+export default function Button({
+  children,
+  size = 'large',
+  disabled = false,
+  onClick,
+  ...props
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <ButtonWrapper size={size} disabled={disabled} onClick={onClick} {...props}>
       {children}
