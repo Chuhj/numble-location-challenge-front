@@ -3,6 +3,8 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from './common/styles/GlobalStyle';
 import { defaultTheme } from './common/styles/theme';
 import Main from './views/main/Main';
+import Signup from './views/Signup';
+import Login from './views/Login';
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
       <TopWrap>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Main />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </TopWrap>
@@ -22,7 +26,6 @@ function App() {
 export default App;
 
 export const TopWrap = styled.div`
-  position: relative;
   width: 100vw;
   height: 100vh;
   max-width: 720px;
