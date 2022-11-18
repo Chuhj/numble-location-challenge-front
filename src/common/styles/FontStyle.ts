@@ -37,7 +37,7 @@ const fontStyle10 = css`
 
 type SizeType = 19 | 17 | 16 | 14 | 13 | 12 | 10;
 
-type ColorType = 'white' | 'black' | 'placeholder';
+type ColorType = 'white' | 'black' | 'placeholder' | 'primary';
 
 const getFontStyle = (fontSize: SizeType) => {
   if (fontSize === 19) return fontStyle19;
@@ -50,7 +50,7 @@ const getFontStyle = (fontSize: SizeType) => {
 };
 
 const getColor = (color?: ColorType) => css`
-  color: ${color || 'black'};
+  color: ${({ theme }) => (color ? theme.colors[color] : theme.colors.black)};
 `;
 
 export const fontStyle = (fontSize: SizeType, bold?: 'bold', color?: ColorType) => css`
