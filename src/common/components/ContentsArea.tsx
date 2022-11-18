@@ -9,5 +9,7 @@ export default function ContentsArea({ children }: ContentsProps) {
 }
 
 const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: ${({ theme }) => ` 0 ${theme.margin} 0 ${theme.margin}`};
 `;
