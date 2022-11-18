@@ -18,21 +18,20 @@ export default function HeaderWithBack({ children }: HeaderProps) {
   );
 }
 
-const HeaderWrapper = styled.header`
+export const HeaderWrapper = styled.header`
   height: 8.5rem;
   width: 100%;
   padding: ${({ theme }) => `0 ${theme.margin} 12px ${theme.margin}`};
   display: flex;
   align-items: flex-end;
-  justify-content: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   position: relative;
 `;
 
-const BackButton = styled.button`
+export const BackButton = styled.button`
   background-color: inherit;
   margin-bottom: 4px;
   &::after {
@@ -46,7 +45,7 @@ const BackButton = styled.button`
   }
 `;
 
-const Text = styled.span`
+export const Text = styled.span`
   font-weight: 700;
   font-size: 1.7rem;
   line-height: 2.5rem;
