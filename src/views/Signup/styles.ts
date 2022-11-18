@@ -10,13 +10,8 @@ export const SignupWrapper = styled.div`
 `;
 
 export const SubmitButton = styled(Button)`
-  position: absolute;
+  position: fixed;
   bottom: 0;
-`;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const Info = styled.div`
