@@ -40,6 +40,7 @@ export const InputWrap = styled.div`
 
 export const StepBtn = styled.div`
   position: fixed;
+  transform: translateX(-15px);
   bottom: 0;
   width: 100%;
   max-width: 720px;
