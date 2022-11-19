@@ -89,6 +89,7 @@ export const JoinBar = styled.div`
   width: 100vw;
   max-height: 720px;
   gap: 14px;
+  max-width: 720px;
   button {
     cursor: pointer;
   }

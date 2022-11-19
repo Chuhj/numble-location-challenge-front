@@ -58,5 +58,6 @@ const BackTab = styled.div`
   svg {
     position: absolute;
     left: 5px;
+    cursor: pointer;
   }
 `

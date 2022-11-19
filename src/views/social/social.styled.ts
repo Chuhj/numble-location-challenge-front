@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const SocialWrap = styled.div`
   height: 100vh;
   padding: 85px 0 53px 0;
+  position: relative;
 `
 
 export const SocialContent = styled.div`
@@ -24,7 +25,7 @@ export const SocialList = styled.ul`
 `
 
 export const AddSocialBtn = styled.button`
-  position: fixed;
+  position: absolute;
   cursor: pointer;
   border: none;
   background-color: white;

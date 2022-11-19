@@ -12,10 +12,10 @@ export default function Social() {
   const navigate = useNavigate()
   return (
     <>
-      <AddSocialBtn onClick={() => navigate('/social/create')}>
-        <IoAddOutline size={22} />
-      </AddSocialBtn>
       <SocialWrap>
+        <AddSocialBtn onClick={() => navigate('/social/create')}>
+          <IoAddOutline size={22} />
+        </AddSocialBtn>
         <Header tabName="모임" />
         <SocialContent>
           <SocialTitle>참여중인 모임</SocialTitle>
