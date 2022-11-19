@@ -1,6 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import styled from 'styled-components'
 import Main from './views/main/Main'
+import SocialDetail from './views/socailDetail'
+import Social from './views/social'
+import SocialCrate from './views/socialCreate'
 
 function App() {
   return (
@@ -8,6 +11,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/social" element={<Social />} />
+          <Route path="/social/detail/:id" element={<SocialDetail />} />
+          <Route path="/social/create" element={<SocialCrate />} />
         </Routes>
       </BrowserRouter>
     </TopWrap>
@@ -23,5 +29,4 @@ export const TopWrap = styled.div`
   max-width: 720px;
   padding-bottom: 7.2rem;
   margin: 0 auto;
-  border: 1px solid black;
 `
