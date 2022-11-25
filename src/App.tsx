@@ -1,10 +1,13 @@
-import { Suspense, useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { useRecoilState } from 'recoil';
 import GlobalStyle from './common/styles/GlobalStyle';
 import { defaultTheme } from './common/styles/theme';
-import Main from './views/main/Main';
+import Main from './views/main/Main'
+import SocialDetail from './views/socailDetail'
+import Social from './views/social'
+import SocialCrate from './views/socialCreate'
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
@@ -62,6 +65,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/home/search" element={<Search />} />
             <Route path="/home/list/:sort" element={<SocialList />} />
+            <Route path="/social" element={<Social />} />
+            <Route path="/social/detail/:id" element={<SocialDetail />} />
+            <Route path="/social/create" element={<SocialCrate />} />
             <Route path="/signup" element={isLogin ? <Navigate to="/home" /> : <Signup />} />
             <Route path="/login" element={isLogin ? <Navigate to="/home" /> : <Login />} />
           </Routes>
@@ -71,12 +77,10 @@ function App() {
   );
 }
 
-export default App;
 
 export const TopWrap = styled.div`
   width: 100vw;
   height: 100vh;
   max-width: 720px;
   margin: 0 auto;
-  border: 1px solid black;
-`;
+`

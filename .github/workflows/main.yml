@@ -2,9 +2,9 @@ name: Deploy S3
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: ['dev']
   pull_request:
-    branches: [ "dev" ]
+    branches: ['dev']
 
   workflow_dispatch:
 
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache node modules  
+      - name: Cache node modules
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -23,16 +23,16 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: Install Dependencies 
+      - name: Install Dependencies
         run: yarn
 
-      - name: Build 
+      - name: Build
         run: yarn build
 
-      - name: Deploy 
+      - name: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
         run: |
-          aws s3 sync ./build s3://bucket-name
+          aws s3 sync ./build s3://${{ secrets.S3_BUCKET }}
