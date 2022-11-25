@@ -1,9 +1,9 @@
 import React from 'react';
-import { Inputs } from '.';
+import { SignupInputs } from './';
 import { Info, Label, Input } from './styles';
 
 export interface Props {
-  inputs: Inputs;
+  inputs: SignupInputs;
   handleChangeInputs: React.ChangeEventHandler<HTMLInputElement>;
 }
 
