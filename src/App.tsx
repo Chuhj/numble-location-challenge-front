@@ -2,20 +2,20 @@ import { useCallback } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { useRecoilState } from 'recoil';
-import GlobalStyle from './common/styles/GlobalStyle';
-import { defaultTheme } from './common/styles/theme';
-import Main from './views/main/Main'
-import SocialDetail from './views/socailDetail'
-import Social from './views/social'
-import SocialCrate from './views/socialCreate'
-import Signup from './views/Signup';
-import Login from './views/Login';
-import Home from './views/Home';
 import { isLoginState } from './common/atoms';
 import { queryClient } from './api/config/queryClient';
 import { getRefresh } from './api/auth';
+import GlobalStyle from './common/styles/GlobalStyle';
+import { defaultTheme } from './common/styles/theme';
+import Main from './views/main/Main';
+import SocialDetail from './views/socailDetail';
+import Social from './views/social';
+import SocialCrate from './views/socialCreate';
+import Signup from './views/Signup';
+import Login from './views/Login';
+import Home from './views/Home';
 import SocialList from './views/SocialList';
-import Search from './views/Search';
+import SocialSearch from './views/SocialSearch';
 
 export default function App() {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
@@ -63,8 +63,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={isLogin ? <Navigate to="/home" /> : <Main />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/home/search" element={<Search />} />
+            <Route path="/home/search" element={<SocialSearch />} />
             <Route path="/home/list/:sort" element={<SocialList />} />
+            <Route path="/home/list/feed" element={<SocialList />} />
             <Route path="/social" element={<Social />} />
             <Route path="/social/detail/:id" element={<SocialDetail />} />
             <Route path="/social/create" element={<SocialCrate />} />
@@ -77,10 +78,9 @@ export default function App() {
   );
 }
 
-
 export const TopWrap = styled.div`
   width: 100vw;
   height: 100vh;
   max-width: 720px;
   margin: 0 auto;
-`
+`;

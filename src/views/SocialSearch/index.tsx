@@ -7,7 +7,7 @@ import HeaderWithBack from '../../common/components/HeaderWithBack';
 import { fontStyle } from '../../common/styles/FontStyle';
 import { TAG_LIST } from './tagList';
 
-export default function Search() {
+export default function SocialSearch() {
   const [select, setSelect] = useState('');
   const navigate = useNavigate();
 
