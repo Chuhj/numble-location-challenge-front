@@ -2,18 +2,19 @@ import styled from 'styled-components';
 import back from '../styles/assets/back.svg';
 
 interface HeaderProps {
-  children?: React.ReactNode;
+  title: string;
+  onClickBack: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function HeaderWithBack({ children }: HeaderProps) {
+export default function HeaderWithBack({ title, onClickBack }: HeaderProps) {
   return (
     <HeaderWrapper>
       <ButtonWrapper>
-        <BackButton>
+        <BackButton onClick={onClickBack}>
           <img src={back} alt="back" />
         </BackButton>
       </ButtonWrapper>
-      <Text>{children}</Text>
+      <Text>{title}</Text>
     </HeaderWrapper>
   );
 }

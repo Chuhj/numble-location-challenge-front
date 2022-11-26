@@ -1,39 +1,72 @@
 import React, { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
 import ContentsArea from '../../common/components/ContentsArea';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
 import { SignupWrapper, SubmitButton } from './styles';
 import { isEmailValid, isPhoneValid } from '../../common/utils/validate';
+import CancelModal from './CancelModal';
+import { useSignup } from '../../api/auth';
+import ThirdForm from './ThirdForm';
 
-export interface Inputs {
+export interface SignupInputs {
   email: string;
   password: string;
   username: string;
   phoneNumber: string;
   nickname: string;
+  dongCode: string;
+  dongName: string;
 }
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [inputs, setInputs] = useState<Inputs>({
+  const [inputs, setInputs] = useState<SignupInputs>({
     email: '',
     password: '',
     username: '',
     phoneNumber: '',
     nickname: '',
+    dongCode: '',
+    dongName: '',
   });
-  console.log(inputs);
+  const [isModalShow, setIsModalShow] = useState(false);
+  const { mutate } = useSignup();
 
-  const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (page !== 2 && isEmailValid(inputs.email)) setPage(prev => prev + 1);
-    if (page === 2) {
-      submit();
-    }
-  };
+  const handleSignup = useCallback(() => {
+    mutate(
+      { ...inputs, userType: 'DEFAULT', dongCode: '1111010400', dongName: '서울특별시 종로구 효자동' },
+      {
+        onSuccess: () => {
+          alert('회원가입에 성공했습니다.');
+          navigate('/login');
+        },
+        onError: (data) => {
+          const errorCode = data.response?.data.errorCode;
+          if (data.response?.status === 400) {
+            if (errorCode === -101) alert('이메일이 이미 존재합니다.');
+            if (errorCode === -102) alert('닉네임이 이미 존재합니다.');
+            if (errorCode === -103) alert('이메일과 닉네임이 이미 존재합니다.');
+          } else {
+            alert('회원가입에 실패했습니다.');
+          }
+        },
+      }
+    );
+  }, [inputs, mutate, navigate]);
 
-  const submit = () => {};
+  const handleClickButton = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (page !== 2 && isEmailValid(inputs.email)) setPage((prev) => prev + 1);
+      if (page === 2) {
+        handleSignup();
+      }
+    },
+    [page, inputs.email, handleSignup]
+  );
 
   const handleChangeInputs = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,15 +76,21 @@ export default function Signup() {
     [inputs]
   );
 
+  const handleClickBack = useCallback(() => {
+    if (page === 1) setIsModalShow(true);
+    else setPage((prev) => prev - 1);
+  }, [page]);
+
   const isButtonAvailable =
     (page === 1 && inputs.email !== '' && isEmailValid(inputs.email) && inputs.password !== '') ||
     (page === 2 && inputs.username !== '' && inputs.phoneNumber !== '' && isPhoneValid(inputs.phoneNumber) && inputs.nickname !== '');
 
   return (
     <SignupWrapper>
-      <HeaderWithBack>{page === 3 ? '동네인증' : '회원가입'}</HeaderWithBack>
+      <HeaderWithBack title={page === 3 ? '동네인증' : '회원가입'} onClickBack={handleClickBack} />
       <form>
         <ContentsArea>
+          {/* <ThirdForm inputs={inputs} handleChangeInputs={handleChangeInputs} /> */}
           {page === 1 && <FirstForm inputs={inputs} handleChangeInputs={handleChangeInputs} />}
           {page === 2 && <SecondForm inputs={inputs} handleChangeInputs={handleChangeInputs} />}
         </ContentsArea>
@@ -59,6 +98,14 @@ export default function Signup() {
           {page === 3 ? '가입완료' : '다음'}
         </SubmitButton>
       </form>
+      {isModalShow ? (
+        <CancelModal
+          onClickCancel={(e) => {
+            setIsModalShow(false);
+          }}
+          onClickConfirm={() => navigate('/')}
+        />
+      ) : null}
     </SignupWrapper>
   );
 }
