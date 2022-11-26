@@ -17,7 +17,7 @@ import { getRefresh } from './api/auth';
 import SocialList from './views/SocialList';
 import Search from './views/Search';
 
-function App() {
+export default function App() {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
 
   const handleError = useCallback((data: any) => {
