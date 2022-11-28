@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
 import Tag from '../Tag';
-import location from '../../../common/styles/assets/location.svg';
-import date from '../../../common/styles/assets/date.svg';
 import people from '../../../common/styles/assets/people.svg';
-import time from '../../../common/styles/assets/time.svg';
+import timeLimit from '../../../common/styles/assets/time_limit.svg';
 import likeWhite from '../../../common/styles/assets/like_white.svg';
 
 export default function SocialCard() {
@@ -18,25 +16,16 @@ export default function SocialCard() {
       </Image>
       <CardContents>
         <div>
-          <Tag text="소분류" />
+          <Tag text={'소분류'} />
           <Title>모임 제목</Title>
           <Info>
-            <InfoCol>
-              <InfoItem>
-                <img src={location} alt="location" /> OO구 OO동
-              </InfoItem>
-              <InfoItem>
-                <img src={people} width="12px" height="12px" alt="location" /> 5/7
-              </InfoItem>
-            </InfoCol>
-            <InfoCol>
-              <InfoItem>
-                <img src={date} alt="location" /> 11.6(일)
-              </InfoItem>
-              <InfoItem>
-                <img src={time} alt="location" /> 오전 9:00
-              </InfoItem>
-            </InfoCol>
+            <InfoItem>
+              <img src={timeLimit} alt="timeLimit" /> 11.1 (화) 모집마감
+            </InfoItem>
+            <InfoItem>
+              <img src={people} width="12px" height="12px" alt="people" />
+              5/7
+            </InfoItem>
           </Info>
         </div>
         <PeopleList>
@@ -48,7 +37,6 @@ export default function SocialCard() {
 }
 
 export const SocialCardWrap = styled.li`
-  height: 13.8rem;
   width: 100%;
   display: flex;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
@@ -56,7 +44,6 @@ export const SocialCardWrap = styled.li`
 `;
 
 export const Image = styled.div`
-  height: 100%;
   width: 7.8rem;
   flex-grow: 1;
   flex-shrink: 0;
@@ -94,33 +81,30 @@ export const CardContents = styled.div`
 export const Title = styled.div`
   margin-top: 6px;
   ${fontStyle(14, 'bold')}
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export const Info = styled.div`
   display: flex;
-  gap: 14px;
+  gap: 12px;
   ${fontStyle(10)}
-  margin-top: 10px;
-`;
-
-export const InfoCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  margin-top: 8px;
 `;
 
 export const InfoItem = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
-  img {
-    margin-top: 2px;
-  }
 `;
 
 export const PeopleList = styled.ul`
   display: flex;
-  gap: 3.87px;
+  gap: 3.22px;
+  margin-top: 11px;
 `;
 
 export const Profile = styled.li`
