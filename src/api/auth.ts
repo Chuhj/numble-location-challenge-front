@@ -22,7 +22,7 @@ export const setHeadersToken = (data: AxiosResponse) => {
 
 export const useSignup = () => {
   return useMutation<AxiosResponse<Response>, AxiosError<ErrorResponse>, SignupBody>(async (inputs) => {
-    const res = await axiosInstance.post(`/join`, inputs);
+    const res = await axiosInstance.post(`/users`, inputs);
     return res;
   });
 };
