@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { GrCalendar, GrLocation } from 'react-icons/gr'
 import {
   IoCalendarOutline,
@@ -7,8 +8,12 @@ import {
   IoPeopleOutline,
   IoTimeOutline,
 } from 'react-icons/io5'
+import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
+import { makeGet } from '../../api/makeRequest'
 import Header from '../../common/components/Header'
 import Tag from '../../common/components/Tag'
+import { Category } from '../Search'
 import { Option, TagList } from '../social/components/SocialCard'
 import {
   Content,
@@ -24,78 +29,61 @@ import {
 } from './socialDetail.styled'
 
 export default function SocialDetail() {
+  const { id } = useParams<{ id: string }>()
+  const { data } = useQuery(`socialDetail/${id}`, () => makeGet(`/social/${id}`))
+
   return (
     <SocialDetailWrap>
+      <Header tabName="모임 상세" isBack />
       <TagList>
-        <Tag name="대분류" />
-        <Tag name="소분류" />
+        <Tag name={data?.category?.name} />
       </TagList>
-      <Title>모임 제목</Title>
+      <Title>{data?.title}</Title>
       <OptionList>
         <Option>
           <GrLocation size={16} />
-          {'지역'}
+          {data?.dongName.length > 6 ? data?.dongName.slice(0, 6) + '...' : data?.dongName}
         </Option>
         <Option>
           <GrCalendar size={16} />
-          {`11.7(sun)`}
+          {data && format(new Date(data?.startDate), 'MM-dd')}
         </Option>
-        <Option>
+        {/* <Option>
           <IoTimeOutline size={16} />
-          오전 9:00
-        </Option>
+          {data && format(new Date(data?.startDate), 'HH:mm')}
+        </Option> */}
       </OptionList>
-      <Content>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam aliquam minima adipisci voluptatibus vitae eum quibusdam
-        quae vel dicta recusandae, quas repudiandae ipsum perferendis a veniam amet dignissimos magni non. Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Quam lit. Quam aliquam minima adipisci voluptatibus vitae eum quibusdam quae vel dicta
-        recusandae, quas repudiandae ipsum perferendis a e ipsum perferendis a veniam amet dignissimos magni non. Lorem ipsum
-        dolor sit amet consadipisicing elit.erfereveniam amet dignissimos magni non.
-      </Content>
+      <Content>{data?.contents}</Content>
       <ExtraInfo>
         <Title>모임 상세 정보</Title>
         <InfoList>
           <Option>
             <IoTimeOutline size={16} />
-            11.1 (화) 모집 마감
+            {data && format(new Date(data?.endDate), 'yyyy-MM-dd')} 모집 마감
           </Option>
           <Option>
             <IoLocationOutline size={16} />
-            OO카페 (서울 OO구 OO동 111-11)
-          </Option>
-          <Option>
-            <IoCalendarOutline size={16} />
-            11.6 (일)
-          </Option>
-          <Option>
-            <IoTimeOutline size={16} />
-            오전 9:00
+            {data?.dongName}
           </Option>
           <Option>
             <IoPeopleOutline size={16} />
-            3/10명
+            {data?.currentNums}/{data?.limitedNums}명
           </Option>
-          <Option>
+          {/* <Option>
             <IoChatbubbleEllipsesOutline size={16} />
             오전 9:00
-          </Option>
+          </Option> */}
         </InfoList>
       </ExtraInfo>
       <ExtraInfo>
         <Title>모임 멤버</Title>
         <InfoList>
-          <Member>
-            <img src="https://api.surfit.io/v1/category/content-cover/develop/react/2x" alt="member-img" />
-            <span>닉네임</span>
-          </Member>
-          <Member>
-            <img src="https://api.surfit.io/v1/category/content-cover/develop/react/2x" alt="member-img" />
-            <span>닉네임</span>
-          </Member>
-          <Member>
-            <img src="https://api.surfit.io/v1/category/content-cover/develop/react/2x" alt="member-img" />
-            <span>닉네임</span>
-          </Member>
+          {data?.socialings?.map((u: any) => (
+            <Member>
+              <img src="https://api.surfit.io/v1/category/content-cover/develop/react/2x" alt="member-img" />
+              <span>{u?.userId}</span>
+            </Member>
+          ))}
         </InfoList>
       </ExtraInfo>
       <JoinBar>

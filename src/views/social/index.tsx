@@ -4,12 +4,14 @@ import Header from '../../common/components/Header'
 import Nav from '../../common/components/Nav'
 import SocialCard from './components/SocialCard'
 import { AddSocialBtn, SocialContent, SocialList, SocialTitle, SocialWrap } from './social.styled'
-import { _DUMMY_DATA } from './_dummy'
 import { IoAddOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 
 export default function Social() {
   const navigate = useNavigate()
+
+  const { data } = useQuery('socials', () => makeGet('/social'))
+
   return (
     <>
       <SocialWrap>
@@ -20,7 +22,7 @@ export default function Social() {
         <SocialContent>
           <SocialTitle>참여중인 모임</SocialTitle>
           <SocialList>
-            {_DUMMY_DATA.map((data) => (
+            {data?.map((data: any) => (
               <SocialCard key={data.id} data={data} />
             ))}
           </SocialList>

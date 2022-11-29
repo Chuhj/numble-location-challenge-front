@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Header from '../../common/components/Header'
 import Tag from '../../common/components/Tag'
 import { ContentInput, FileInput, Input, InputWrap, SocialCrateWrap, StepBtn, TabItem, Title } from './socialCreate'
@@ -9,6 +9,8 @@ export default function SocialCrate() {
 
   const [titleState, setTitleState] = useState('')
   const [contentState, setContentState] = useState('')
+
+  console.log(titleState, contentState)
 
   return (
     <>

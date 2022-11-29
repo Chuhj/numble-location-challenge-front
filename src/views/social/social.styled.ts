@@ -25,11 +25,11 @@ export const SocialList = styled.ul`
 `
 
 export const AddSocialBtn = styled.button`
-  position: absolute;
+  position: fixed;
   cursor: pointer;
   border: none;
   background-color: white;
-  top: 44px;
+  top: 50px;
   right: 15px;
   z-index: 20;
 `

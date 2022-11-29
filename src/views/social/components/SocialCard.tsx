@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom'
 
 export default function SocialCard({ data }: { data: any }) {
   const navigate = useNavigate()
+
   return (
-    <SocialCardWrap onClick={() => navigate('/social/detail/1')}>
+    <SocialCardWrap onClick={() => navigate(`/social/detail/${data.id}`)}>
       <img src={data.images[0].imagePath} alt="social-img" />
       <CardContent>
         <TagList>
@@ -87,7 +88,7 @@ export const Option = styled.ul`
   color: #242424;
 `
 
-const OptionList = styled.li`
+const OptionList = styled.div`
   margin-top: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr;
