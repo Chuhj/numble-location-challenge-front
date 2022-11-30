@@ -1,23 +1,14 @@
 import { useQuery } from 'react-query';
 import axiosInstance from './config/axios';
+import { Social } from './types';
 
-export const useGetRecentSocialList = () => {
-  return useQuery<any[]>(['socials', 'recent'], async () => {
-    const res = await axiosInstance.get(`/social/sort/1`);
-    return res.data.data;
-  });
-};
-
-export const useGetDeadlineSocialList = () => {
-  return useQuery<any[]>(['socials', 'deadline'], async () => {
-    const res = await axiosInstance.get(`/social/sort/2`);
-    return res.data.data;
-  });
-};
-
-export const useGetPopularSocialList = () => {
-  return useQuery<any[]>(['socials', 'popular'], async () => {
-    const res = await axiosInstance.get(`/social/sort/3`);
+export const useGetSocialList = (sort: string, category: number) => {
+  let sortNum: number;
+  if (sort === 'recent') sortNum = 1;
+  if (sort === 'deadline') sortNum = 2;
+  if (sort === 'popular') sortNum = 3;
+  return useQuery<Social[]>(['socials', sort, category], async () => {
+    const res = await axiosInstance.get(`/social${category === 0 ? '' : `/${category}`}/sort/${sortNum}`);
     return res.data.data;
   });
 };
