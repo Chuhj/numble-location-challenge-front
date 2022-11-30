@@ -1,7 +1,46 @@
+export interface Feed {
+  postId: number;
+  user: {
+    id: number;
+    profile: any; // ?
+    nickname: string;
+  };
+  contents: string;
+  social: {
+    id: number;
+    thumbnail: {
+      imagePath: string;
+    };
+    title: string;
+    region: number;
+    regionName: string;
+    startDate: string;
+  } | null; // ?
+  thumbnail: {
+    imagePath: string;
+  };
+  comment: {
+    commentId: number;
+    user: {
+      id: number;
+      profile: string;
+      nickname: string;
+    };
+    contents: string;
+    createDate: string;
+  } | null; // ?
+  comments_cnt: number;
+  regions: number;
+  regionName: string;
+  createTime: string;
+  likes: number;
+  liked: boolean;
+}
+
 export interface Social {
   socialings: any[];
   id: number;
-  images: string[];
+  images: { imagePath: string }[];
   regionCode: number;
   dongCode: number;
   dongName: string;
@@ -21,6 +60,7 @@ export interface Social {
     }
   ];
   likeCnt: number;
+  likeOrElse: boolean;
   createDate: string;
 }
 
