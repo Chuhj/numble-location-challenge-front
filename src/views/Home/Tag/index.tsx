@@ -15,4 +15,5 @@ const TagWrapper = styled.span`
     background-color: ${theme.colors.tag};
   `};
   border-radius: 17px;
+  margin-right: 6px;
 `;
