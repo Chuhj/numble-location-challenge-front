@@ -23,13 +23,3 @@ export const SocialList = styled.ul`
   gap: 25px;
   flex-flow: column;
 `
-
-export const AddSocialBtn = styled.button`
-  position: fixed;
-  cursor: pointer;
-  border: none;
-  background-color: white;
-  top: 50px;
-  right: 15px;
-  z-index: 20;
-`
