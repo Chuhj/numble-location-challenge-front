@@ -7,8 +7,7 @@ export const SocialDetailWrap = styled.main`
   flex-flow: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 16px;
-  padding-bottom: 70px;
+  padding: 101px 16px 70px 16px;
   overflow-y: scroll;
 `
 

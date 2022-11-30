@@ -1,13 +1,15 @@
 import styled from 'styled-components'
-import { IoChevronBack } from 'react-icons/io5'
+import { IoAddOutline, IoChevronBack } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 
 interface I_Header_Prop {
   tabName: string
   isBack?: boolean
+  isAdd?: boolean
+  isAddFunc?: () => void
 }
 
-export default function Header({ tabName, isBack = false }: I_Header_Prop) {
+export default function Header({ tabName, isBack = false, isAdd, isAddFunc }: I_Header_Prop) {
   const navigate = useNavigate()
 
   return (
@@ -20,6 +22,11 @@ export default function Header({ tabName, isBack = false }: I_Header_Prop) {
         </BackTab>
       ) : (
         <TabName>{tabName}</TabName>
+      )}
+      {isAdd && (
+        <AddSocialBtn onClick={() => navigate('/social/create')}>
+          <IoAddOutline size={22} />
+        </AddSocialBtn>
       )}
     </HeaderWrap>
   )
@@ -60,4 +67,14 @@ const BackTab = styled.div`
     left: 5px;
     cursor: pointer;
   }
+`
+
+const AddSocialBtn = styled.button`
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  top: 50px;
+  right: 10px;
+  z-index: 20;
 `
