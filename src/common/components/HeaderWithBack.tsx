@@ -20,12 +20,16 @@ export default function HeaderWithBack({ title, onClickBack }: HeaderProps) {
 }
 
 export const HeaderWrapper = styled.header`
-  height: 8.5rem;
+  height: 85px;
   width: 100%;
+  max-width: 720px;
   padding: ${({ theme }) => `0 ${theme.margin} 12px ${theme.margin}`};
   display: flex;
   align-items: flex-end;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  position: fixed;
+  top: 0;
+  background-color: white;
 `;
 
 export const ButtonWrapper = styled.div`
