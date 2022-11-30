@@ -2,22 +2,25 @@ import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
 import more from '../../../common/styles/assets/more.svg';
 import SocialCardList from '../SocialCardList';
+import { useGetRecentSocialList } from '../../../api/social';
+import { Social } from '../../../api/types';
 
 interface SocialListProps {
   title: string;
+  socials?: Social[];
   marginTop?: number;
   gap?: number;
   onClickHeader?: React.MouseEventHandler;
 }
 
-export default function SocialList({ title, marginTop = 0, gap = 12, onClickHeader }: SocialListProps) {
+export default function SocialList({ title, socials, marginTop = 0, gap = 12, onClickHeader }: SocialListProps) {
   return (
     <SocialListWrap marginTop={marginTop}>
       <SocialListHeader onClick={onClickHeader}>
         <Title>{title}</Title>
         <img src={more} alt="more" />
       </SocialListHeader>
-      <SocialCardList gap={gap} />
+      <SocialCardList gap={gap} socials={socials} />
     </SocialListWrap>
   );
 }

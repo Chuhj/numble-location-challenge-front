@@ -4,32 +4,39 @@ import Tag from '../Tag';
 import people from '../../../common/styles/assets/people.svg';
 import timeLimit from '../../../common/styles/assets/time_limit.svg';
 import likeWhite from '../../../common/styles/assets/like_white.svg';
+import { Social } from '../../../api/types';
+import { caculateDate } from '../../../common/utils/caculateDate';
 
-export default function SocialCard() {
+export default function SocialCard({ social }: { social: Social }) {
+  const { month, date, day } = caculateDate(social.endDate);
+
   return (
     <SocialCardWrap>
       <Image>
-        <img src="" alt="img" />
+        <img src={social.images.length === 0 ? '' : social.images[0].imagePath} alt="img" />
         <Like>
           <img src={likeWhite} alt="likeWhite" />
         </Like>
       </Image>
       <CardContents>
         <div>
-          <Tag text={'소분류'} />
-          <Title>모임 제목</Title>
+          {social.tags.map((tag: any) => (
+            <Tag text={tag.tag_name} />
+          ))}
+          <Title>{social.title}</Title>
           <Info>
             <InfoItem>
-              <img src={timeLimit} alt="timeLimit" /> 11.1 (화) 모집마감
+              <img src={timeLimit} alt="timeLimit" /> {`${month}.${date} (${day}) 모집마감`}
             </InfoItem>
             <InfoItem>
-              <img src={people} width="12px" height="12px" alt="people" />
-              5/7
+              <img src={people} width="12px" height="12px" alt="people" /> {social.currentNums}/{social.limitedNums}
             </InfoItem>
           </Info>
         </div>
         <PeopleList>
-          <Profile />
+          {social.socialings.map(() => (
+            <Profile />
+          ))}
         </PeopleList>
       </CardContents>
     </SocialCardWrap>
@@ -37,6 +44,7 @@ export default function SocialCard() {
 }
 
 export const SocialCardWrap = styled.li`
+  height: 12.1rem;
   width: 100%;
   display: flex;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
