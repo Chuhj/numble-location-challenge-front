@@ -30,7 +30,6 @@ export default function EachFeed({ feed }: Props) {
   const { mutate: mutateLike } = useLike();
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
-  console.log(isLiked);
 
   const handleLike = () => {
     setLiked((prev) => !prev);
@@ -84,7 +83,7 @@ export default function EachFeed({ feed }: Props) {
           <img src={menudots} alt="" />
         </MoreButton>
       </FeedTop>
-      <Image />
+      <Image src={feed.thumbnail.imagePath} />
       <ContentsArea>
         {feed.social ? (
           <Social>
@@ -228,6 +227,7 @@ export const Image = styled.img`
   height: 36rem;
   width: 36rem;
   background-color: ${({ theme }) => theme.colors.grey};
+  object-fit: contain;
 `;
 
 export const FeedContents = styled.div`

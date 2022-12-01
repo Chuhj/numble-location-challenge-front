@@ -14,6 +14,7 @@ export const TabsWrapper = styled.ul`
   position: fixed;
   top: 85px;
   background-color: white;
+  z-index: 1;
 `;
 
 export const TabItem = styled.li`

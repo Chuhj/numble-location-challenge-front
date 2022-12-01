@@ -119,7 +119,7 @@ export default function EachFeedDetail({ feed }: Props) {
           <img src={menudots} alt="" />
         </MoreButton>
       </FeedTop>
-      <Image />
+      <Image src={feed.images[0].imagePath} />
       <ContentsArea>
         {feed.social ? (
           <Social>

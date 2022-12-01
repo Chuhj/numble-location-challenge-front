@@ -35,9 +35,13 @@ export const FeedCardWrap = styled.li`
 
 export const Image = styled.div`
   height: 17rem;
-  background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 6px;
   position: relative;
+  img:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const Like = styled.button`

@@ -6,6 +6,7 @@ export const HomeHeaderWrapper = styled(HeaderWrapper)`
   padding-bottom: 0;
   border: none;
   overflow: hidden;
+  z-index: 1;
 `;
 
 export const SearchButton = styled(BackButton)`
