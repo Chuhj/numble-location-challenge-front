@@ -6,7 +6,7 @@ import ContentsArea from '../../common/components/ContentsArea';
 import { Input, Label, SubmitButton } from '../Signup/styles';
 import { Logo, SignupButton } from './styles';
 import { setHeadersToken, useLogin } from '../../api/auth';
-import { isLoginState } from '../../common/atoms';
+import { userState } from '../../common/atoms';
 
 export interface LoginInputs {
   email: string;
@@ -16,7 +16,7 @@ export interface LoginInputs {
 export default function Login() {
   const [inputs, setInputs] = useState<LoginInputs>({ email: '', password: '' });
   const { mutate } = useLogin();
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const setUser = useSetRecoilState(userState);
   const navigate = useNavigate();
 
   const handleClickBack = useCallback(() => {
@@ -37,18 +37,19 @@ export default function Login() {
       mutate(inputs, {
         onSuccess: (data) => {
           setHeadersToken(data);
-          if (data.data.success) setIsLogin(true);
+          const responseData = data.data;
+          if (responseData.success) setUser({ isLogin: true, id: responseData.data.userId });
         },
         onError: (data) => {
           const errorCode = data.response?.data.errorCode;
           if (errorCode === -111) alert('존재하지 않는 계정입니다.');
           else if (errorCode === -104) alert('비밀번호가 틀렸습니다.');
           else alert('로그인에 실패했습니다.');
-          setIsLogin(false);
+          setUser({ isLogin: false, id: null });
         },
       });
     },
-    [inputs, mutate, setIsLogin]
+    [inputs, mutate, setUser]
   );
 
   return (
