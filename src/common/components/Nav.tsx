@@ -30,7 +30,7 @@ export default function Nav({ curr }: { curr: string }) {
         <img src={curr === 'like' ? likeFill : like} alt="" /> 저장
       </NavItem>
       <NavItem>
-        <img src={curr === 'my' ? myFill : my} alt="" onClick={() => navigate('/user')} /> MY
+        <img src={curr === 'my' ? myFill : my} alt="" onClick={() => navigate('/my')} /> MY
       </NavItem>
     </BottomNavWrap>
   )

@@ -1,56 +1,57 @@
-import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import HeaderWithBack from '../../common/components/HeaderWithBack';
-import ContentsArea from '../../common/components/ContentsArea';
-import { Input, Label, SubmitButton } from '../Signup/styles';
-import { Logo, SignupButton } from './styles';
-import { setHeadersToken, useLogin } from '../../api/auth';
-import { userState } from '../../common/atoms';
+import React, { useCallback, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
+import HeaderWithBack from '../../common/components/HeaderWithBack'
+import ContentsArea from '../../common/components/ContentsArea'
+import { Input, Label, SubmitButton } from '../Signup/styles'
+import { Logo, SignupButton } from './styles'
+import { setHeadersToken, useLogin } from '../../api/auth'
+import { userState } from '../../common/atoms'
 
 export interface LoginInputs {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export default function Login() {
-  const [inputs, setInputs] = useState<LoginInputs>({ email: '', password: '' });
-  const { mutate } = useLogin();
-  const setUser = useSetRecoilState(userState);
-  const navigate = useNavigate();
+  const [inputs, setInputs] = useState<LoginInputs>({ email: '', password: '' })
+  const { mutate } = useLogin()
+  const setUser = useSetRecoilState(userState)
+  const navigate = useNavigate()
 
   const handleClickBack = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
+    navigate('/')
+  }, [navigate])
 
   const handleChangeInputs = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { id, value } = e.target;
-      setInputs({ ...inputs, [id]: value });
+      const { id, value } = e.target
+      setInputs({ ...inputs, [id]: value })
     },
     [inputs]
-  );
+  )
 
   const handleLogin = useCallback(
     (e: React.MouseEvent) => {
-      e.preventDefault();
+      e.preventDefault()
       mutate(inputs, {
         onSuccess: (data) => {
-          setHeadersToken(data);
-          const responseData = data.data;
-          if (responseData.success) setUser({ isLogin: true, id: responseData.data.userId });
+          setHeadersToken(data)
+          const responseData = data.data
+          if (responseData.success) setUser({ isLogin: true, id: responseData.data.userId })
+          localStorage.setItem('userId', data.data.data.userId)
         },
         onError: (data) => {
-          const errorCode = data.response?.data.errorCode;
-          if (errorCode === -111) alert('존재하지 않는 계정입니다.');
-          else if (errorCode === -104) alert('비밀번호가 틀렸습니다.');
-          else alert('로그인에 실패했습니다.');
-          setUser({ isLogin: false, id: null });
+          const errorCode = data.response?.data.errorCode
+          if (errorCode === -111) alert('존재하지 않는 계정입니다.')
+          else if (errorCode === -104) alert('비밀번호가 틀렸습니다.')
+          else alert('로그인에 실패했습니다.')
+          setUser({ isLogin: false, id: null })
         },
-      });
+      })
     },
     [inputs, mutate, setUser]
-  );
+  )
 
   return (
     <>
@@ -74,5 +75,5 @@ export default function Login() {
         <SubmitButton onClick={handleLogin}>로그인</SubmitButton>
       </form>
     </>
-  );
+  )
 }

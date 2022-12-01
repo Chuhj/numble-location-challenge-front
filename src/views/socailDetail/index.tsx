@@ -1,19 +1,11 @@
 import { format } from 'date-fns'
 import { GrCalendar, GrLocation } from 'react-icons/gr'
-import {
-  IoCalendarOutline,
-  IoChatbubbleEllipsesOutline,
-  IoHeartOutline,
-  IoLocationOutline,
-  IoPeopleOutline,
-  IoTimeOutline,
-} from 'react-icons/io5'
+import { IoHeartOutline, IoLocationOutline, IoPeopleOutline, IoTimeOutline } from 'react-icons/io5'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { makeGet } from '../../api/makeRequest'
 import Header from '../../common/components/Header'
 import Tag from '../../common/components/Tag'
-import { Category } from '../Search'
 import { Option, TagList } from '../social/components/SocialCard'
 import {
   Content,

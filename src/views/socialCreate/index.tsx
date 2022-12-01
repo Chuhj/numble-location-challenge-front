@@ -24,7 +24,7 @@ export default function SocialCrate() {
 
   const { mutate } = useMutation((body: any) => makePost({ endpoint: '/social', body }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('social')
+      queryClient.invalidateQueries('/social')
       Swal.fire('모임이 등록되었습니다.')
       nav('/social')
     },
@@ -47,7 +47,7 @@ export default function SocialCrate() {
       contact: call,
       tags: [
         {
-          selectTag,
+          tag: selectTag,
         },
       ],
       images: [

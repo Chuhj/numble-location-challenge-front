@@ -49,6 +49,7 @@ export const PostList = styled.ul`
 `
 
 export const Post = styled.li`
+  cursor: pointer;
   width: 100%;
   height: 75px;
   padding: 18px 15px;
@@ -69,4 +70,10 @@ export const Post = styled.li`
     font-size: 13px;
     line-height: 19px;
   }
+`
+
+export const Title = styled.strong`
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 25px;
 `
