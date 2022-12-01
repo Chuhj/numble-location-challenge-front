@@ -1,6 +1,7 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useGetDeadlineSocialList, useGetPopularSocialList, useGetRecentSocialList } from '../../api/social';
+import { useGetSocialList } from '../../api/social';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
 import SocialCardList from '../Home/SocialCardList';
 
@@ -11,19 +12,23 @@ const TITLE = {
 };
 
 export default function SocialList() {
-  const { data: popularData } = useGetPopularSocialList();
-  const { data: deadlineData } = useGetDeadlineSocialList();
-  const { data: recentData } = useGetRecentSocialList();
+  const {
+    state: { tab },
+  } = useLocation();
   const { sort } = useParams<{ sort: 'recent' | 'deadline' | 'popular' }>();
   const navigate = useNavigate();
-  console.log(popularData);
+  const { data, refetch } = useGetSocialList(sort as string, tab);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   if (sort && !TITLE[sort]) return <>잘못된 URL입니다.</>;
   return (
     <SocialListWrap>
       <HeaderWithBack title={sort ? TITLE[sort] : ''} onClickBack={() => navigate('/')} />
       <ContentsArea>
-        <SocialCardList gap={16} />
+        <SocialCardList gap={16} socials={data} />
       </ContentsArea>
     </SocialListWrap>
   );
