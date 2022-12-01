@@ -20,6 +20,7 @@ import HomeFeedList from './views/HomeFeedList';
 import Feed from './views/Feed';
 import FeedDetail from './views/FeedDetail';
 import FeedAdd from './views/FeedAdd';
+import User from './views/user'
 
 export default function App() {
   const [{ isLogin }, setUser] = useRecoilState(userState);
@@ -51,10 +52,11 @@ export default function App() {
     [setUser]
   );
 
+
   queryClient.setDefaultOptions({
     queries: { refetchOnMount: false, refetchOnWindowFocus: false, onError: handleError },
     mutations: { onError: handleError },
-  });
+  })
 
   const checkLogin = useCallback(async () => {
     try {
@@ -68,6 +70,7 @@ export default function App() {
   useEffect(() => {
     checkLogin();
   }, [checkLogin]);
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -86,13 +89,15 @@ export default function App() {
             <Route path="/feed" element={<Feed />} />
             <Route path="/feed/detail/:id" element={<FeedDetail />} />
             <Route path="/feed/add" element={<FeedAdd />} />
+            <Route path="/user" element={<User />} />
             <Route path="/signup" element={isLogin ? <Navigate to="/home" /> : <Signup />} />
             <Route path="/login" element={isLogin ? <Navigate to="/home" /> : <Login />} />
+            <Route path="/user" element={isLogin ? <Navigate to="/user" /> : <Login />} />
           </Routes>
         </BrowserRouter>
       </TopWrap>
     </ThemeProvider>
-  );
+  )
 }
 
 export const TopWrap = styled.div`

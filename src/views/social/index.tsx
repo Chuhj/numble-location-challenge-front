@@ -3,29 +3,27 @@ import { makeGet } from '../../api/makeRequest'
 import Header from '../../common/components/Header'
 import Nav from '../../common/components/Nav'
 import SocialCard from './components/SocialCard'
-import { AddSocialBtn, SocialContent, SocialList, SocialTitle, SocialWrap } from './social.styled'
-import { _DUMMY_DATA } from './_dummy'
-import { IoAddOutline } from 'react-icons/io5'
+import { SocialContent, SocialList, SocialTitle, SocialWrap } from './social.styled'
 import { useNavigate } from 'react-router-dom'
 
 export default function Social() {
   const navigate = useNavigate()
+
+  const { data } = useQuery('socials', () => makeGet('/social'))
+
   return (
     <>
       <SocialWrap>
-        <AddSocialBtn onClick={() => navigate('/social/create')}>
-          <IoAddOutline size={22} />
-        </AddSocialBtn>
-        <Header tabName="모임" />
+        <Header tabName="모임" isAdd isAddFunc={() => navigate('/social/create')} />
         <SocialContent>
           <SocialTitle>참여중인 모임</SocialTitle>
           <SocialList>
-            {_DUMMY_DATA.map((data) => (
+            {data?.map((data: any) => (
               <SocialCard key={data.id} data={data} />
             ))}
           </SocialList>
         </SocialContent>
-        <Nav />
+        <Nav curr={'social'} />
       </SocialWrap>
     </>
   )

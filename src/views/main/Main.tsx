@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { fontStyle } from '../../common/styles/FontStyle';
-import kakaoJoinImg from '../../common/styles/assets/kakao_join.png';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components'
+import { fontStyle } from '../../common/styles/FontStyle'
+import kakaoJoinImg from '../../common/styles/assets/kakao_join.png'
+import { useNavigate } from 'react-router-dom'
 
 export default function Main() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <MainWrap>
@@ -16,16 +16,17 @@ export default function Main() {
         <LoginButton onClick={() => navigate('/login')}>이미 계정이 있나요? 로그인</LoginButton>
       </ButtonsWrap>
     </MainWrap>
-  );
+  )
 }
 
 export const MainWrap = styled.div`
   ${({ theme }) => `padding: 0 ${theme.margin} 0 ${theme.margin};`}
-`;
+`
 
 export const ButtonsWrap = styled.div`
   padding-top: 533px;
 `;
+
 
 export const EmailButton = styled.div`
   height: 4.4rem;
@@ -37,7 +38,7 @@ export const EmailButton = styled.div`
   background: #584ef1;
   border-radius: 5px;
   cursor: pointer;
-`;
+`
 
 export const KakaoButton = styled.div`
   height: 4.4rem;
@@ -57,7 +58,7 @@ export const KakaoButton = styled.div`
     margin: 0 auto;
   }
   cursor: pointer;
-`;
+`
 
 export const LoginButton = styled.div`
   width: fit-content;
@@ -66,4 +67,4 @@ export const LoginButton = styled.div`
   ${fontStyle(13, undefined)}
   background: inherit;
   cursor: pointer;
-`;
+`

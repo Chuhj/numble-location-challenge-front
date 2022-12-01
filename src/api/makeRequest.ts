@@ -7,7 +7,7 @@ interface Mutation {
 
 export const makeGet = async (endpoint: string) => {
   const { data } = await axiosInstance.get(endpoint)
-  return data
+  return data.data
 }
 
 export const makePost = ({ endpoint, body }: Mutation) => axiosInstance.post(endpoint, body)
