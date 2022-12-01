@@ -79,7 +79,7 @@ export default function ThirdForm({ inputs, setInputs }: { inputs: SignupInputs;
         }
       });
     }
-  }, [inputs, setInputs]);
+  }, []);
 
   return (
     <>
