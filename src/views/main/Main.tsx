@@ -24,8 +24,9 @@ export const MainWrap = styled.div`
 `
 
 export const ButtonsWrap = styled.div`
-  margin-top: 533px;
-`
+  padding-top: 533px;
+`;
+
 
 export const EmailButton = styled.div`
   height: 4.4rem;

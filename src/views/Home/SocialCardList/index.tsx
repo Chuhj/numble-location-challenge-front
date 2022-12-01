@@ -1,14 +1,18 @@
 import styled from 'styled-components';
+import { Social } from '../../../api/types';
 import SocialCard from '../SocialCard';
 
-export default function SocialCardList({ gap }: { gap: number }) {
+interface SocialCardListProps {
+  gap: number;
+  socials?: Social[];
+}
+
+export default function SocialCardList({ gap, socials }: SocialCardListProps) {
   return (
     <SocialCardListWrap gap={gap}>
-      <SocialCard />
-      <SocialCard />
-      <SocialCard />
-      <SocialCard />
-      <SocialCard />
+      {socials?.map((social) => (
+        <SocialCard key={social.id} social={social} />
+      ))}
     </SocialCardListWrap>
   );
 }

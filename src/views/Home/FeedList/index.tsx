@@ -1,23 +1,28 @@
 import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
-import SocialCardList from '../SocialCardList';
 import more from '../../../common/styles/assets/more.svg';
 import FeedCard from '../FeedCard';
+import { Feed } from '../../../api/types';
 
-export default function FeedList({ title }: { title: string }) {
+export default function FeedList({
+  title,
+  feeds,
+  onClickHeader,
+}: {
+  title: string;
+  feeds?: { data: Feed[]; hasNextPage: boolean };
+  onClickHeader?: React.MouseEventHandler;
+}) {
   return (
     <FeedListWrap>
-      <SocialListHeader>
+      <SocialListHeader onClick={onClickHeader}>
         <Title>{title}</Title>
         <img src={more} alt="more" />
       </SocialListHeader>
       <FeedCardList>
-        <FeedCard />
-        <FeedCard />
-        <FeedCard />
-        <FeedCard />
-        <FeedCard />
-        <FeedCard />
+        {feeds?.data.map((feed) => (
+          <FeedCard key={feed.postId} feed={feed} />
+        ))}
       </FeedCardList>
     </FeedListWrap>
   );
@@ -35,6 +40,7 @@ export const SocialListHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+  cursor: pointer;
 `;
 
 export const Title = styled.span`

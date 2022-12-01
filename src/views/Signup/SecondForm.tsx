@@ -1,7 +1,7 @@
 import { Props } from './FirstForm';
 import { Info, Input, Label } from './styles';
 
-export default function SecondForm({ inputs, handleChangeInputs }: Props) {
+export default function SecondForm({ inputs, onChangeInputs }: Props) {
   return (
     <>
       <Info>
@@ -10,13 +10,13 @@ export default function SecondForm({ inputs, handleChangeInputs }: Props) {
       </Info>
 
       <Label htmlFor="name">이름</Label>
-      <Input type="text" id="username" value={inputs.username} placeholder="이름을 입력하세요" onChange={handleChangeInputs} />
+      <Input type="text" id="username" value={inputs.username} placeholder="이름을 입력하세요" onChange={onChangeInputs} />
 
       <Label htmlFor="phone">핸드폰 번호</Label>
-      <Input type="tel" id="phoneNumber" value={inputs.phoneNumber} placeholder="010-0000-0000" onChange={handleChangeInputs} />
+      <Input type="tel" id="phoneNumber" value={inputs.phoneNumber} placeholder="010-0000-0000" onChange={onChangeInputs} />
 
       <Label htmlFor="nickname">닉네임</Label>
-      <Input type="text" id="nickname" value={inputs.nickname} placeholder="닉네임을 입력하세요" onChange={handleChangeInputs} />
+      <Input type="text" id="nickname" value={inputs.nickname} placeholder="닉네임을 입력하세요" onChange={onChangeInputs} />
     </>
   );
 }

@@ -1,25 +1,26 @@
 import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
+import { Feed } from '../../../api/types';
 import Tag from '../Tag';
 import location from '../../../common/styles/assets/location.svg';
 import date from '../../../common/styles/assets/date.svg';
 import people from '../../../common/styles/assets/people.svg';
 import time from '../../../common/styles/assets/time.svg';
 import likeWhite from '../../../common/styles/assets/like_white.svg';
+import { useNavigate } from 'react-router-dom';
 
-export default function FeedCard() {
+export default function FeedCard({ feed }: { feed: Feed }) {
+  const navigate = useNavigate();
+
   return (
-    <FeedCardWrap>
+    <FeedCardWrap onClick={() => navigate(`/feed/detail/${feed.postId}`)}>
       <Image>
-        <img src="" alt="img" />
+        <img src={feed.thumbnail.imagePath} alt="feedImg" />
         <Like>
           <img src={likeWhite} alt="likeWhite" />
         </Like>
       </Image>
-      <FeedContents>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi quos ullam at ab, minima dolorum architecto dolores illum quis a impedit
-        quaerat minus tenetur explicabo consequatur accusamus vel asperiores eos?
-      </FeedContents>
+      <FeedContents>{feed.contents}</FeedContents>
     </FeedCardWrap>
   );
 }

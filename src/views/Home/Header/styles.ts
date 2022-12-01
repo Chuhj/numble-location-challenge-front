@@ -15,4 +15,10 @@ export const SearchButton = styled(BackButton)`
 
 export const Logo = styled.div`
   margin-bottom: 7px;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 29px;
+  color: #584ef1;
 `;

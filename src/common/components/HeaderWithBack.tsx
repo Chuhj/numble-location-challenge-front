@@ -4,9 +4,11 @@ import back from '../styles/assets/back.svg';
 interface HeaderProps {
   title: string;
   onClickBack: React.MouseEventHandler<HTMLButtonElement>;
+  isAdd?: boolean;
+  onAdd?: React.MouseEventHandler;
 }
 
-export default function HeaderWithBack({ title, onClickBack }: HeaderProps) {
+export default function HeaderWithBack({ title, onClickBack, isAdd, onAdd }: HeaderProps) {
   return (
     <HeaderWrapper>
       <ButtonWrapper>
@@ -15,17 +17,22 @@ export default function HeaderWithBack({ title, onClickBack }: HeaderProps) {
         </BackButton>
       </ButtonWrapper>
       <Text>{title}</Text>
+      {isAdd ? <Complete onClick={onAdd}>완료</Complete> : null}
     </HeaderWrapper>
   );
 }
 
 export const HeaderWrapper = styled.header`
-  height: 8.5rem;
+  height: 85px;
   width: 100%;
+  max-width: 720px;
   padding: ${({ theme }) => `0 ${theme.margin} 12px ${theme.margin}`};
   display: flex;
   align-items: flex-end;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  position: fixed;
+  top: 0;
+  background-color: white;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -51,4 +58,11 @@ export const Text = styled.span`
   font-size: 1.7rem;
   line-height: 2.5rem;
   margin: 0 auto;
+`;
+
+const Complete = styled.div`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 17px;
+  line-height: 25px;
+  cursor: pointer;
 `;

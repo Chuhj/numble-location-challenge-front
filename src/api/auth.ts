@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from '../api/config/axios';
 import { LoginInputs } from './../views/Login/index';
 import { SignupInputs } from '../views/Signup';
@@ -11,7 +11,8 @@ interface SignupBody extends SignupInputs {
 
 export const getRefresh = async () => {
   const res = await axiosInstance.post(`/refresh`);
-  return setHeadersToken(res);
+  setHeadersToken(res);
+  return res;
 };
 
 export const setHeadersToken = (data: AxiosResponse) => {
@@ -22,7 +23,7 @@ export const setHeadersToken = (data: AxiosResponse) => {
 
 export const useSignup = () => {
   return useMutation<AxiosResponse<Response>, AxiosError<ErrorResponse>, SignupBody>(async (inputs) => {
-    const res = await axiosInstance.post(`/join`, inputs);
+    const res = await axiosInstance.post(`/users`, inputs);
     return res;
   });
 };
@@ -30,6 +31,14 @@ export const useSignup = () => {
 export const useLogin = () => {
   return useMutation<AxiosResponse<Response>, AxiosError<ErrorResponse>, LoginInputs>(async (inputs) => {
     const res = await axiosInstance.post(`/login`, inputs);
+    return res;
+  });
+};
+
+export const useLogout = () => {
+  return useMutation<AxiosResponse<Response>, AxiosError<ErrorResponse>>(async (inputs) => {
+    const res = await axiosInstance.post('/logout');
+    axiosInstance.defaults.headers.common['authorization'] = '';
     return res;
   });
 };

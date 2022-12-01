@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <HomeHeaderWrapper>
-      <Logo>로고</Logo>
+      <Logo>WEET</Logo>
       <ButtonWrapper>
         <SearchButton onClick={() => navigate('/home/search')}>
           <img src={search} alt="search" />

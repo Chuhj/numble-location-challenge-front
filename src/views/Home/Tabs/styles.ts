@@ -9,6 +9,11 @@ export const TabsWrapper = styled.ul`
   &::-webkit-scrollbar {
     display: none;
   }
+  width: 100%;
+  max-width: 720px;
+  position: fixed;
+  top: 85px;
+  background-color: white;
 `;
 
 export const TabItem = styled.li`
