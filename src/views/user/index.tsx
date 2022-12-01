@@ -11,7 +11,6 @@ export default function User() {
   const userId = localStorage.getItem('userId')
   const { data } = useQuery(`myinfo/${userId}`, () => makeGet(`/users/${userId}`))
   const { data: socialData } = useQuery(`social/join`, () => makeGet(`social/join`))
-  console.log(socialData)
 
   return (
     <>

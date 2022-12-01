@@ -8,6 +8,7 @@ export const SocialWrap = styled.div`
 
 export const SocialContent = styled.div`
   padding: 18px 16px;
+  padding-bottom: 70px;
 `
 
 export const SocialTitle = styled.h1`

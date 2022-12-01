@@ -29,9 +29,10 @@ export const OptionList = styled.div`
 `
 
 export const Content = styled.p`
+  flex-direction: column;
   display: block;
   width: 100%;
-  max-height: 190px;
+  max-height: 400px;
   display: flex;
   flex-shrink: 0;
   justify-content: flex-start;
@@ -40,6 +41,14 @@ export const Content = styled.p`
   line-height: 19px;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
 `
 
 export const ExtraInfo = styled.div`
@@ -106,7 +115,7 @@ export const LikeBtn = styled.button`
   border-radius: 10px;
 `
 
-export const JoinBtn = styled.button`
+export const JoinBtn = styled.button<{ isJoin: boolean }>`
   width: 100%;
   height: 40px;
   background: #584ef1;
@@ -116,4 +125,11 @@ export const JoinBtn = styled.button`
   font-size: 14px;
   line-height: 20px;
   color: #ffffff;
+
+  &:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+  }
+
+  ${({ isJoin }) => isJoin && `background-color:  #ED6653`}
 `

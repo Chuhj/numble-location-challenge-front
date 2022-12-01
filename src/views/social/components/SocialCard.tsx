@@ -43,6 +43,7 @@ export default function SocialCard({ data }: { data: any }) {
 const SocialCardWrap = styled.li`
   width: 100%;
   height: 185px;
+  cursor: pointer;
 
   img {
     width: 100%;

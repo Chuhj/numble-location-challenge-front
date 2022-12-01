@@ -2,7 +2,7 @@ import axiosInstance from './config/axios'
 
 interface Mutation {
   endpoint: string
-  body: any
+  body?: any
 }
 
 export const makeGet = async (endpoint: string) => {
