@@ -55,7 +55,7 @@ export default function Login() {
   return (
     <>
       <HeaderWithBack title="로그인" onClickBack={handleClickBack} />
-      <Logo />
+      <Logo>WEET</Logo>
       <form>
         <ContentsArea>
           <Label htmlFor="email">이메일</Label>
