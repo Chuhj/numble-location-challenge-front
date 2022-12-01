@@ -1,8 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { isLoginState } from './common/atoms';
+import { userState } from './common/atoms';
 import { queryClient } from './api/config/queryClient';
 import { getRefresh } from './api/auth';
 import GlobalStyle from './common/styles/GlobalStyle';
@@ -14,29 +14,42 @@ import SocialCrate from './views/socialCreate';
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Home from './views/Home';
-import SocialList from './views/SocialList';
+import HomeSocialList from './views/HomeSocialList';
 import SocialSearch from './views/SocialSearch';
+import HomeFeedList from './views/HomeFeedList';
+import Feed from './views/Feed';
+import FeedDetail from './views/FeedDetail';
+import FeedAdd from './views/FeedAdd';
 
 export default function App() {
-  const [isLogin, setIsLogin] = useRecoilState(isLoginState);
+  const [{ isLogin }, setUser] = useRecoilState(userState);
 
-  const handleError = useCallback((data: any) => {
-    console.log(data, 'onError');
-    if (data.response?.status === 401) {
-      console.log('handleError');
-      if (data.response?.data.errorCode === -188) {
-        // access_token 만료
-        getRefresh().catch(() => {
-          setIsLogin(false);
+  const handleError = useCallback(
+    (data: any) => {
+      if (data.response?.status === 401) {
+        const { errorCode } = data.response?.data;
+        if (errorCode === -188 || errorCode === -166) {
+          // 인증 실패 또는 access_token 만료 시
+          // 토큰 새로발급 => 실패 시 다시 로그인
+          getRefresh()
+            .then((res) => {
+              setUser({ isLogin: true, id: res.data.data.userId });
+            })
+            .catch(() => {
+              setUser({ isLogin: false, id: null });
+              window.location.href = '/login';
+            });
+        } else {
+          // 다시 로그인
+          setUser({ isLogin: false, id: null });
           window.location.href = '/login';
-        });
+        }
       } else {
-        // 다시 로그인
-        setIsLogin(false);
-        window.location.href = '/login';
+        alert('에러가 발생했습니다!');
       }
-    }
-  }, []);
+    },
+    [setUser]
+  );
 
   queryClient.setDefaultOptions({
     queries: { refetchOnMount: false, refetchOnWindowFocus: false, onError: handleError },
@@ -45,15 +58,16 @@ export default function App() {
 
   const checkLogin = useCallback(async () => {
     try {
-      await getRefresh();
-      setIsLogin(true);
+      const res = await getRefresh();
+      setUser({ isLogin: true, id: res.data.data.userId });
     } catch (err) {
-      setIsLogin(false);
+      setUser({ isLogin: false, id: null });
     }
-  }, []);
+  }, [setUser]);
 
-  checkLogin();
-  console.log(isLogin);
+  useEffect(() => {
+    checkLogin();
+  }, [checkLogin]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -64,11 +78,14 @@ export default function App() {
             <Route path="/" element={isLogin ? <Navigate to="/home" /> : <Main />} />
             <Route path="/home" element={<Home />} />
             <Route path="/home/search" element={<SocialSearch />} />
-            <Route path="/home/list/:sort" element={<SocialList />} />
-            <Route path="/home/list/feed" element={<SocialList />} />
+            <Route path="/home/list/:sort" element={<HomeSocialList />} />
+            <Route path="/home/list/feed" element={<HomeFeedList />} />
             <Route path="/social" element={<Social />} />
             <Route path="/social/detail/:id" element={<SocialDetail />} />
             <Route path="/social/create" element={<SocialCrate />} />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/feed/detail/:id" element={<FeedDetail />} />
+            <Route path="/feed/add" element={<FeedAdd />} />
             <Route path="/signup" element={isLogin ? <Navigate to="/home" /> : <Signup />} />
             <Route path="/login" element={isLogin ? <Navigate to="/home" /> : <Login />} />
           </Routes>
