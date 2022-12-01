@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
 import more from '../../../common/styles/assets/more.svg';
 import SocialCardList from '../SocialCardList';
-import { useGetRecentSocialList } from '../../../api/social';
 import { Social } from '../../../api/types';
 
 interface SocialListProps {
