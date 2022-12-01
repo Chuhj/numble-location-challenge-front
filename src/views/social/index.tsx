@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Social() {
   const navigate = useNavigate()
 
-  const { data } = useQuery('socials', () => makeGet('/social'))
+  const { data } = useQuery('social', () => makeGet('/social'))
 
   return (
     <>

@@ -24,7 +24,7 @@ export default function SocialCrate() {
 
   const { mutate } = useMutation((body: any) => makePost({ endpoint: '/social', body }), {
     onSuccess: () => {
-      queryClient.invalidateQueries('/social')
+      queryClient.invalidateQueries('social')
       Swal.fire('모임이 등록되었습니다.')
       nav('/social')
     },
@@ -52,7 +52,7 @@ export default function SocialCrate() {
       ],
       images: [
         {
-          imagePath: 'https://content.surfit.io/thumbs/image/3jmqK/RveOk/8189222306383605d8482d/cover-center-2x.webp',
+          imagePath: 'https://gram-img.s3.ap-northeast-2.amazonaws.com/austin-schmid-Mgd4WNAYeQ0-unsplash.jpg',
         },
       ],
     }

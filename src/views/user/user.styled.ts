@@ -57,6 +57,7 @@ export const Post = styled.li`
   flex-direction: column;
   gap: 6px;
   border-bottom: 1px solid #f2f2f2;
+  position: relative;
 
   span {
     font-weight: 400;
@@ -76,4 +77,20 @@ export const Title = styled.strong`
   font-weight: 700;
   font-size: 14px;
   line-height: 25px;
+`
+
+export const PostListWrap = styled.div`
+  & > ul:not(:last-child) {
+    margin-bottom: 50px;
+  }
+`
+
+export const DeleteBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 28px;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 10px;
+  background-color: #ed6653;
 `

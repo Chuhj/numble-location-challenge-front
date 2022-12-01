@@ -53,7 +53,7 @@ export default function App() {
   )
 
   queryClient.setDefaultOptions({
-    queries: { refetchOnMount: false, refetchOnWindowFocus: false, onError: handleError },
+    queries: { refetchOnMount: false, refetchOnWindowFocus: false, onError: handleError, cacheTime: 0 },
     mutations: { onError: handleError },
   })
 

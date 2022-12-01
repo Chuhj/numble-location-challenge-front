@@ -27,12 +27,14 @@ export default function SocialDetail() {
   const { data } = useQuery(`socialDetail/${id}`, () => makeGet(`/social/${id}`))
   const userId = localStorage.getItem('userId')
 
-  const isLimit = data?.limitedNums === data?.currentNums || data.user.id === Number(userId)
+  const isLimit = data?.limitedNums === data?.currentNums
   const isJoin = data?.socialings.some((person: any) => person.userId === Number(userId))
+  const isHost = data?.user.id === Number(userId)
 
   const { mutate: join } = useMutation((body: any) => makePost({ endpoint: `/socialing/${id}` }), {
     onSuccess: () => {
       queryClient.invalidateQueries(`socialDetail/${id}`)
+      queryClient.invalidateQueries('social/join')
       Swal.fire('모임에 참가신청을 했습니다.')
     },
     onError: () => {
@@ -46,6 +48,7 @@ export default function SocialDetail() {
   const { mutate: cancel } = useMutation(() => makeDelete(`/socialing/${id}`), {
     onSuccess: () => {
       queryClient.invalidateQueries(`socialDetail/${id}`)
+      queryClient.invalidateQueries('social/join')
       Swal.fire('모임 참가를 취소했습니다.')
     },
     onError: () => {
@@ -119,8 +122,8 @@ export default function SocialDetail() {
         <LikeBtn>
           <IoHeartOutline size={20} stroke={'#584EF1'} />
         </LikeBtn>
-        <JoinBtn isJoin={isJoin} onClick={onJoin} disabled={isLimit}>
-          {isJoin ? '참가 취소하기' : isLimit ? '이미 마감된 모임입니다.' : '모임 신청하기'}
+        <JoinBtn isJoin={isJoin} onClick={onJoin} disabled={isLimit || isHost}>
+          {isHost ? '내가 만든 모임입니다.' : isJoin ? '참가 취소하기' : isLimit ? '이미 마감된 모임입니다.' : '모임 신청하기'}
         </JoinBtn>
       </JoinBar>
     </SocialDetailWrap>

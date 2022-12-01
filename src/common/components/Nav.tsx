@@ -24,10 +24,10 @@ export default function Nav({ curr }: { curr: string }) {
         <img src={curr === 'social' ? peopleFill : people} alt="" onClick={() => navigate('/social')} /> 모임
       </NavItem>
       <NavItem>
-        <img src={curr === 'feed' ? feedFill : feed} alt="" /> 피드
+        <img src={curr === 'feed' ? feedFill : feed} alt="" onClick={() => navigate('/feed')} /> 피드
       </NavItem>
       <NavItem>
-        <img src={curr === 'like' ? likeFill : like} alt="" /> 저장
+        <img src={curr === 'like' ? likeFill : like} alt="" onClick={() => navigate('/feed')} /> 저장
       </NavItem>
       <NavItem>
         <img src={curr === 'my' ? myFill : my} alt="" onClick={() => navigate('/my')} /> MY
