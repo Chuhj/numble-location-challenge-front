@@ -3,10 +3,10 @@ import Button from '../../common/components/Button';
 import { fontStyle } from '../../common/styles/FontStyle';
 
 export const SignupWrapper = styled.div`
-  height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
+  padding-top: 85px;
 `;
 
 export const SubmitButton = styled(Button)`

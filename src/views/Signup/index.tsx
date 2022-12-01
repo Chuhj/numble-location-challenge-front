@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HeaderWithBack from '../../common/components/HeaderWithBack';
 import ContentsArea from '../../common/components/ContentsArea';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
+import HeaderWithBack from '../../common/components/HeaderWithBack';
 import { SignupWrapper, SubmitButton } from './styles';
 import { isEmailValid, isPhoneValid } from '../../common/utils/validate';
 import CancelModal from './CancelModal';
@@ -37,7 +37,7 @@ export default function Signup() {
 
   const handleSignup = useCallback(() => {
     mutate(
-      { ...inputs, userType: 'DEFAULT', dongCode: '1111010400', dongName: '서울특별시 종로구 효자동' },
+      { ...inputs, userType: 'DEFAULT' },
       {
         onSuccess: () => {
           alert('회원가입에 성공했습니다.');
@@ -60,8 +60,8 @@ export default function Signup() {
   const handleClickButton = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      if (page !== 2 && isEmailValid(inputs.email)) setPage((prev) => prev + 1);
-      if (page === 2) {
+      if (page !== 3 && isEmailValid(inputs.email)) setPage((prev) => prev + 1);
+      if (page === 3) {
         handleSignup();
       }
     },
@@ -83,17 +83,18 @@ export default function Signup() {
 
   const isButtonAvailable =
     (page === 1 && inputs.email !== '' && isEmailValid(inputs.email) && inputs.password !== '') ||
-    (page === 2 && inputs.username !== '' && inputs.phoneNumber !== '' && isPhoneValid(inputs.phoneNumber) && inputs.nickname !== '');
+    (page === 2 && inputs.username !== '' && inputs.phoneNumber !== '' && isPhoneValid(inputs.phoneNumber) && inputs.nickname !== '') ||
+    (page === 3 && inputs.dongName !== '' && inputs.dongCode);
 
   return (
     <SignupWrapper>
       <HeaderWithBack title={page === 3 ? '동네인증' : '회원가입'} onClickBack={handleClickBack} />
       <form>
         <ContentsArea>
-          {/* <ThirdForm inputs={inputs} handleChangeInputs={handleChangeInputs} /> */}
-          {page === 1 && <FirstForm inputs={inputs} handleChangeInputs={handleChangeInputs} />}
-          {page === 2 && <SecondForm inputs={inputs} handleChangeInputs={handleChangeInputs} />}
+          {page === 1 && <FirstForm inputs={inputs} onChangeInputs={handleChangeInputs} />}
+          {page === 2 && <SecondForm inputs={inputs} onChangeInputs={handleChangeInputs} />}
         </ContentsArea>
+        {page === 3 && <ThirdForm inputs={inputs} setInputs={setInputs} />}
         <SubmitButton onClick={handleClickButton} disabled={!isButtonAvailable}>
           {page === 3 ? '가입완료' : '다음'}
         </SubmitButton>
