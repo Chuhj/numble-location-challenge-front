@@ -77,6 +77,7 @@ export const Image = styled.img`
   height: 36rem;
   width: 36rem;
   background-color: ${({ theme }) => theme.colors.grey};
+  object-fit: contain;
 `;
 
 export const FeedContents = styled.div`

@@ -55,9 +55,15 @@ export const Image = styled.div`
   width: 7.8rem;
   flex-grow: 1;
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 6px 0 0 6px;
   position: relative;
+
+  img:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px 0 0 6px;
+  }
 `;
 
 export const Like = styled.button`
