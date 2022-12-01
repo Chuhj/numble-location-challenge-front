@@ -1,8 +1,59 @@
+export interface CommentType {
+  commentId: number;
+  user: {
+    id: number;
+    profile: string;
+    nickname: string;
+  };
+  contents: string;
+  level: number;
+  refOrder: number;
+  parentNum: number;
+  createDate: string;
+  deleted: boolean;
+  cgroup: number;
+  regionName: string;
+}
+
+export interface FeedDetail {
+  postId: number;
+  user: {
+    id: number;
+    profile: string;
+    nickname: string;
+  };
+  contents: string;
+  images: [
+    {
+      imagePath: string;
+    },
+    {
+      imagePath: string;
+    }
+  ];
+  regions: number;
+  regionName: string;
+  likes: number;
+  createTime: string;
+  comments: CommentType[];
+  social: {
+    id: number;
+    thumbnail: {
+      imagePath: string;
+    };
+    title: string;
+    region: number;
+    regionName: string;
+    startDate: string;
+  } | null;
+  liked: boolean;
+}
+
 export interface Feed {
   postId: number;
   user: {
     id: number;
-    profile: any; // ?
+    profile: string;
     nickname: string;
   };
   contents: string;
@@ -15,7 +66,7 @@ export interface Feed {
     region: number;
     regionName: string;
     startDate: string;
-  } | null; // ?
+  } | null;
   thumbnail: {
     imagePath: string;
   };
@@ -28,7 +79,7 @@ export interface Feed {
     };
     contents: string;
     createDate: string;
-  } | null; // ?
+  } | null;
   comments_cnt: number;
   regions: number;
   regionName: string;
