@@ -5,10 +5,10 @@ import people from '../../../common/styles/assets/people.svg';
 import timeLimit from '../../../common/styles/assets/time_limit.svg';
 import likeWhite from '../../../common/styles/assets/like_white.svg';
 import { Social } from '../../../api/types';
-import { caculateDate } from '../../../common/utils/caculateDate';
+import { formatDate } from '../../../common/utils/formatDate';
 
 export default function SocialCard({ social }: { social: Social }) {
-  const { month, date, day } = caculateDate(social.endDate);
+  const endDate = formatDate(social.endDate);
 
   return (
     <SocialCardWrap>
@@ -26,7 +26,7 @@ export default function SocialCard({ social }: { social: Social }) {
           <Title>{social.title}</Title>
           <Info>
             <InfoItem>
-              <img src={timeLimit} alt="timeLimit" /> {`${month}.${date} (${day}) 모집마감`}
+              <img src={timeLimit} alt="timeLimit" /> {`${endDate} 모집마감`}
             </InfoItem>
             <InfoItem>
               <img src={people} width="12px" height="12px" alt="people" /> {social.currentNums}/{social.limitedNums}
