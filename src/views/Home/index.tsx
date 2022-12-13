@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useGetSocialList } from '../../api/social';
-import { useGetHotFeeds } from '../../api/feed';
 import ContentsArea from '../../common/components/ContentsArea';
 import Header from './Header';
 import Tabs from './Tabs';
@@ -14,10 +12,6 @@ const BASE_URL = '/home/list';
 
 export default function Home() {
   const [tab, setTab] = useState(0);
-  const { data: recentData } = useGetSocialList('recent', tab);
-  const { data: deadlineData } = useGetSocialList('deadline', tab);
-  const { data: popularData } = useGetSocialList('popular', tab);
-  const { data: feedsData } = useGetHotFeeds();
   const navigate = useNavigate();
 
   const handleClickTabs = useCallback((e: React.MouseEvent) => {
@@ -33,21 +27,24 @@ export default function Home() {
         <Tabs tab={tab} onClickTabs={handleClickTabs} />
         <SocialList
           title="인기 모임"
-          socials={popularData?.slice(0, 3)}
+          tab={tab}
+          kind={'popular'}
           marginTop={18}
           onClickHeader={() => navigate(`${BASE_URL}/popular`, { state: { tab } })}
         />
         <SocialList
           title="마감 임박 모임 🔥"
-          socials={deadlineData?.slice(0, 3)}
+          tab={tab}
+          kind={'deadline'}
           marginTop={100}
           onClickHeader={() => navigate(`${BASE_URL}/deadline`, { state: { tab } })}
         />
-        <FeedList title="주목받는 피드 ✨" feeds={feedsData} onClickHeader={() => navigate(`${BASE_URL}/feed`)} />
+        <FeedList title="주목받는 피드 ✨" onClickHeader={() => navigate(`${BASE_URL}/feed`)} />
         <SocialList
           title="최신 모임"
-          socials={recentData?.slice(0, 3)}
+          tab={tab}
           marginTop={54}
+          kind={'recent'}
           onClickHeader={() => navigate(`${BASE_URL}/recent`, { state: { tab } })}
         />
       </ContentsArea>
