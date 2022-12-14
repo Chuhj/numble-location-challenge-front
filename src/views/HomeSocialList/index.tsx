@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useGetSocialList } from '../../api/social';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
-import SocialCardList from '../Home/SocialCardList';
+import SocialCard from '../Home/SocialCard';
 
 const TITLE = {
   recent: '최신 모임',
@@ -26,17 +26,27 @@ export default function SocialList() {
   if (sort && !TITLE[sort]) return <>잘못된 URL입니다.</>;
   return (
     <SocialListWrap>
-      <HeaderWithBack title={sort ? TITLE[sort] : ''} onClickBack={() => navigate('/')} />
+      <HeaderWithBack title={sort ? TITLE[sort] : ''} onClickBack={() => navigate('/home')} />
       <ContentsArea>
-        <SocialCardList gap={16} socials={data} />
+        <CardListWrap gap={16}>
+          {data?.map((social) => (
+            <SocialCard key={social.id} social={social} />
+          ))}
+        </CardListWrap>
       </ContentsArea>
     </SocialListWrap>
   );
 }
 
+export const CardListWrap = styled.ul<{ gap: number }>`
+  display: flex;
+  flex-direction: column;
+  ${({ gap }) => `gap: ${gap}px`};
+`;
+
 export const ContentsArea = styled.div`
   padding: ${({ theme }) => ` 0 ${theme.margin} 0 ${theme.margin}`};
-  margin-top: 8px;
+  margin-top: 101px;
 `;
 
 export const SocialListWrap = styled.div`

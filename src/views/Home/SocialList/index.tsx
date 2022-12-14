@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
 import more from '../../../common/styles/assets/more.svg';
-import SocialCardList from '../SocialCardList';
 import { useGetSocialList } from '../../../api/social';
+import SocialCard from '../SocialCard';
 
 interface SocialListProps {
   title: string;
@@ -22,7 +22,11 @@ export default function SocialList({ title, tab, kind, marginTop = 0, gap = 12, 
         <Title>{title}</Title>
         <img src={more} alt="more" />
       </SocialListHeader>
-      <SocialCardList gap={gap} socials={data} />
+      <CardListWrap gap={gap}>
+        {data?.map((social) => (
+          <SocialCard key={social.id} social={social} />
+        ))}
+      </CardListWrap>
     </SocialListWrap>
   );
 }
