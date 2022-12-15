@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ContentsArea from '../../common/components/ContentsArea';
-import Header from './Header';
-import Tabs from './Tabs';
-import SocialList from './SocialList';
-import FeedList from './FeedList';
+import Header from '../../components/Home/Header';
+import Tabs from '../../components/Home/Tabs';
+import SocialList from '../../components/Home/SocialList';
+import FeedList from '../../components/Home/FeedList';
 import BottomNav from '../../common/components/BottomNav';
 
 const BASE_URL = '/home/list';

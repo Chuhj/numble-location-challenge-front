@@ -1,18 +1,12 @@
-import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetFeed } from '../../api/feed';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
-import EachFeedDetail from './EachFeedDetail';
+import EachFeedDetail from '../../components/FeedDetail/EachFeedDetail';
 
 export default function FeedDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, refetch } = useGetFeed(id);
-  console.log(data);
-
-  useEffect(() => {
-    if (id) refetch();
-  }, [refetch, id]);
+  const { data } = useGetFeed({ id, enabled: !!id });
 
   return (
     <div style={{ marginTop: '85px' }}>

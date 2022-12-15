@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useGetSocialList } from '../../api/social';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
-import SocialCard from '../Home/SocialCard';
+import SocialCard from '../../components/Home/SocialCard';
 
 const TITLE = {
   recent: '최신 모임',
