@@ -38,7 +38,6 @@ export default function EachFeed({ feed }: Props) {
 
   const handleClickContents = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    console.log(target.tagName);
 
     if (target.className === 'more') setTruncateLine(0);
     else if (target.tagName === 'SPAN') navigate(`/feed/detail/${feed.postId}`); // 피드 상세로 이동

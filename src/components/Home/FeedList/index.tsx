@@ -2,17 +2,10 @@ import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
 import more from '../../../common/styles/assets/more.svg';
 import FeedCard from '../FeedCard';
-import { Feed } from '../../../api/types';
+import { useGetHotFeeds } from '../../../api/feed';
 
-export default function FeedList({
-  title,
-  feeds,
-  onClickHeader,
-}: {
-  title: string;
-  feeds?: { data: Feed[]; hasNextPage: boolean };
-  onClickHeader?: React.MouseEventHandler;
-}) {
+export default function FeedList({ title, onClickHeader }: { title: string; onClickHeader?: React.MouseEventHandler }) {
+  const { data } = useGetHotFeeds();
   return (
     <FeedListWrap>
       <SocialListHeader onClick={onClickHeader}>
@@ -20,7 +13,7 @@ export default function FeedList({
         <img src={more} alt="more" />
       </SocialListHeader>
       <FeedCardList>
-        {feeds?.data.map((feed) => (
+        {data?.data.map((feed) => (
           <FeedCard key={feed.postId} feed={feed} />
         ))}
       </FeedCardList>

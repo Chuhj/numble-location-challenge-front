@@ -44,7 +44,7 @@ export default function EachFeedDetail({ feed }: Props) {
   const { mutate: mutateComment } = useAddComment();
   const { mutate: mutateLike } = useLike();
   const { mutate: mutateReply } = useReplyComment();
-  const { refetch } = useGetFeed(String(feed.postId));
+  const { refetch } = useGetFeed({ id: String(feed.postId), enabled: false });
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const groupComments = feed.comments.reduce((acc: { [key: number]: any[] }, comment) => {
@@ -159,9 +159,9 @@ export default function EachFeedDetail({ feed }: Props) {
                 .flat()
                 .map((comment: CommentType) =>
                   comment.level === 1 ? (
-                    <Comment comment={comment} isReply={true} onClickReply={handleClickReply} replyId={replyInfo.commentId} />
+                    <Comment key={comment.commentId} comment={comment} isReply={true} onClickReply={handleClickReply} replyId={replyInfo.commentId} />
                   ) : (
-                    <Comment comment={comment} onClickReply={handleClickReply} replyId={replyInfo.commentId} />
+                    <Comment key={comment.commentId} comment={comment} onClickReply={handleClickReply} replyId={replyInfo.commentId} />
                   )
                 )}
             </>

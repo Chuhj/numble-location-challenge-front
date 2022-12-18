@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
 import { Feed } from '../../../api/types';
-import Tag from '../Tag';
-import location from '../../../common/styles/assets/location.svg';
-import date from '../../../common/styles/assets/date.svg';
-import people from '../../../common/styles/assets/people.svg';
-import time from '../../../common/styles/assets/time.svg';
 import likeWhite from '../../../common/styles/assets/like_white.svg';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,12 +30,12 @@ export const FeedCardWrap = styled.li`
 
 export const Image = styled.div`
   height: 17rem;
-  border-radius: 6px;
   position: relative;
   img:nth-child(1) {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 6px;
   }
 `;
 

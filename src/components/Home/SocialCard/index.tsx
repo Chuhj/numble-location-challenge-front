@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { fontStyle } from '../../../common/styles/FontStyle';
+import { Social } from '../../../api/types';
 import Tag from '../Tag';
 import people from '../../../common/styles/assets/people.svg';
 import timeLimit from '../../../common/styles/assets/time_limit.svg';
 import likeWhite from '../../../common/styles/assets/like_white.svg';
-import { Social } from '../../../api/types';
 import { formatDate } from '../../../common/utils/formatDate';
 
 export default function SocialCard({ social }: { social: Social }) {
