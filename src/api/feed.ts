@@ -69,3 +69,10 @@ export const useDeleteFeed = () => {
     return res.data.data;
   });
 };
+
+export const useEditFeed = () => {
+  return useMutation<Response, AxiosError<ErrorResponse>, { id: number; body: AddFeedBody }>(async ({ id, body }) => {
+    const res = await axiosInstance.put(`/posts/${id}`, body);
+    return res.data.data;
+  });
+};
