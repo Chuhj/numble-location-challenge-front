@@ -22,8 +22,17 @@ export const formatRelativeDate = (dateString: string) => {
   const diffMinutes = Math.round(diffSec / 60);
   const diffHours = Math.round(diffMinutes / 60);
   const diffDays = Math.round(diffHours / 24);
+  const diffWeeks = diffDays >= 7 ? Math.round(diffDays / 7) : 0;
+  const diffMonths = diffWeeks >= 5 ? Math.round(diffWeeks / 5) : 0;
+  const diffYears = diffMonths >= 12 ? Math.round(diffMonths / 12) : 0;
 
-  if (diffDays > 0) {
+  if (diffYears > 0) {
+    return `${diffYears}년 전`;
+  } else if (diffMonths > 0) {
+    return `${diffMonths}달 전`;
+  } else if (diffWeeks > 0) {
+    return `${diffWeeks}주 전`;
+  } else if (diffDays > 0) {
     return `${diffDays}일 전`;
   } else if (diffHours > 0) {
     return `${diffHours}시간 전`;
