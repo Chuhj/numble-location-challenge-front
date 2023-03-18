@@ -33,6 +33,7 @@ export const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   background-color: white;
+  z-index: 1;
 `;
 
 export const ButtonWrapper = styled.div`
