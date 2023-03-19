@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { SignupInputs } from '.';
+import { SignupInputs } from '../../views/Signup';
 import { fontStyle } from '../../common/styles/FontStyle';
 import { caculate } from '../../common/utils/caculateDistance';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignupInputs } from './';
+import { SignupInputs } from '../../views/Signup';
 import { Info, Label, Input } from './styles';
 
 export interface Props {

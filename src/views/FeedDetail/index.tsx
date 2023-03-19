@@ -6,7 +6,7 @@ import EachFeedDetail from '../../components/FeedDetail/EachFeedDetail';
 export default function FeedDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data } = useGetFeed({ id, enabled: !!id });
+  const { data } = useGetFeed({ id });
 
   return (
     <div style={{ marginTop: '85px' }}>
