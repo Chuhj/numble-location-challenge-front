@@ -6,7 +6,18 @@ import cross from '../../common/styles/assets/cross.svg';
 import HeaderWithBack from '../../common/components/HeaderWithBack';
 import { useNavigate } from 'react-router-dom';
 import ContentsArea from '../../common/components/ContentsArea';
-import { FeedContents, FeedAddWrap, ImgArea, ImgInput, PreviewImg, DeleteButton, SocialInput, Line, Count } from './styles';
+import {
+  FeedContents,
+  FeedAddWrap,
+  ImgArea,
+  ImgInput,
+  PreviewImg,
+  DeleteButton,
+  SocialInput,
+  Line,
+  Count,
+} from './styles';
+import { uploadFile } from '../../common/utils/upload';
 
 export interface AddFeedBody {
   contents: string;
@@ -28,22 +39,34 @@ export default function FeedAdd() {
   const { mutate } = useAddFeed();
   const navigate = useNavigate();
 
-  const handleAddFeed = () => {
-    // console.log(imgFiles);
-    // const formData = new FormData();
+  const handleAddFeed = async () => {
+    if (contents.length === 0 || imgFiles.length === 0) {
+      alert('사진이나 내용을 작성해주세요.');
+      return;
+    }
+    const imagePaths = [];
+    try {
+      for (const file of imgFiles) {
+        const imagePath = await uploadFile(file);
+        if (!imagePath) throw new Error('path is null');
+        imagePaths.push({ imagePath });
+      }
+    } catch (error) {
+      alert(`이미지 업로드에 문제가 있습니다. ${error}`);
+      return;
+    }
 
-    // for (const file of imgFiles) {
-    //   formData.append('images', file);
-    // }
-    // formData.append('contents', contents);
     mutate(
       {
         contents,
-        images: [{ imagePath: 'path' }],
+        images: imagePaths,
       },
       {
         onSuccess: () => {
           navigate(`/feed`);
+        },
+        onError: () => {
+          alert('피드 작성에 실패했습니다.');
         },
       }
     );
@@ -92,7 +115,12 @@ export default function FeedAdd() {
 
   return (
     <FeedAddWrap>
-      <HeaderWithBack title="피드 작성" onClickBack={() => navigate(-1)} isAdd={true} onAdd={handleAddFeed} />
+      <HeaderWithBack
+        title="피드 작성"
+        onClickBack={() => navigate(-1)}
+        isAdd={true}
+        onAdd={handleAddFeed}
+      />
       <ContentsArea>
         <input type="file" accept="image/*" ref={inputRef} onChange={handleUploadImage} multiple />
         <ImgArea>
@@ -117,7 +145,11 @@ export default function FeedAdd() {
           모임 선택 안함 <img src={down} alt="down" />
         </SocialInput>
         <Line />
-        <FeedContents value={contents} onChange={handleChangeContents} placeholder="피드에 올릴 게시글 내용을 작성해주세요." />
+        <FeedContents
+          value={contents}
+          onChange={handleChangeContents}
+          placeholder="피드에 올릴 게시글 내용을 작성해주세요."
+        />
         <Count>
           <span>{contents.length}</span> / <span>{MAX_CONTENT}</span>
         </Count>
