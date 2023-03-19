@@ -31,6 +31,7 @@ import {
   Image,
 } from './styles';
 import Comment from '../Comment';
+import Carousel from '../Carousel';
 
 interface Props {
   feed: FeedDetail;
@@ -44,7 +45,7 @@ export default function EachFeedDetail({ feed }: Props) {
   const { mutate: mutateComment } = useAddComment();
   const { mutate: mutateLike } = useLike();
   const { mutate: mutateReply } = useReplyComment();
-  const { refetch } = useGetFeed({ id: String(feed.postId), enabled: false });
+  const { refetch } = useGetFeed({ id: String(feed.postId) });
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const groupComments = feed.comments.reduce((acc: { [key: number]: any[] }, comment) => {
@@ -119,7 +120,7 @@ export default function EachFeedDetail({ feed }: Props) {
           <img src={menudots} alt="" />
         </MoreButton>
       </FeedTop>
-      <Image src={feed.images[0].imagePath} />
+      <Carousel images={feed.images} />
       <ContentsArea>
         {feed.social ? (
           <Social>
@@ -168,7 +169,15 @@ export default function EachFeedDetail({ feed }: Props) {
           )}
         </CommentsArea>
         <form onSubmit={handleSubmitComment}>
-          <div style={{ display: 'flex', position: 'fixed', bottom: 0, padding: '11px 0', background: 'white' }}>
+          <div
+            style={{
+              display: 'flex',
+              position: 'fixed',
+              bottom: 0,
+              padding: '11px 0',
+              background: 'white',
+            }}
+          >
             {replyInfo.nickname ? <>{replyInfo.nickname}</> : null}
             <DetailCommentTextarea
               ref={inputRef}
