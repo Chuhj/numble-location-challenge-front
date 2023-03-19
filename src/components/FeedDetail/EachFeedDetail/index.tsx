@@ -10,7 +10,7 @@ import { CommentType, FeedDetail } from '../../../api/types';
 import { formatDate, formatRelativeDate } from '../../../common/utils/formatDate';
 import FeedMoreModal from '../../../common/components/FeedMoreModal';
 import { userState } from '../../../common/atoms';
-import { useGetFeed, useLike, useAddComment, useReplyComment } from '../../../api/feed';
+import { useLike, useAddComment, useReplyComment } from '../../../api/feed';
 import {
   FeedWrap,
   FeedTop,
@@ -28,10 +28,10 @@ import {
   CommentsArea,
   DetailCommentTextarea,
   WriteButton,
-  Image,
 } from './styles';
 import Comment from '../Comment';
 import Carousel from '../Carousel';
+import { queryClient } from '../../../api/config/queryClient';
 
 interface Props {
   feed: FeedDetail;
@@ -45,7 +45,6 @@ export default function EachFeedDetail({ feed }: Props) {
   const { mutate: mutateComment } = useAddComment();
   const { mutate: mutateLike } = useLike();
   const { mutate: mutateReply } = useReplyComment();
-  const { refetch } = useGetFeed({ id: String(feed.postId) });
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const groupComments = feed.comments.reduce((acc: { [key: number]: any[] }, comment) => {
@@ -64,7 +63,12 @@ export default function EachFeedDetail({ feed }: Props) {
 
   const handleLike = () => {
     setLiked((prev) => !prev);
-    mutateLike({ id: feed.postId }, { onSettled: () => refetch() });
+    mutateLike(
+      { id: feed.postId },
+      {
+        onSettled: () => queryClient.invalidateQueries(['feed', String(feed.postId)]).then(() => setLiked(feed.liked)),
+      }
+    );
   };
 
   const focusInput = () => {
@@ -75,15 +79,15 @@ export default function EachFeedDetail({ feed }: Props) {
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(commentContents);
     if (replyInfo.commentId) {
       mutateReply(
         { id: feed.postId, commentId: replyInfo.commentId, contents: commentContents },
         {
           onSuccess: () => {
-            refetch().then(() => setCommentContents(''));
+            queryClient.invalidateQueries(['feed', String(feed.postId)]).then(() => setCommentContents(''));
           },
           onError: () => {
+            queryClient.invalidateQueries(['feed', String(feed.postId)]);
             alert('댓글 달기에 실패했습니다.');
           },
         }
@@ -93,9 +97,11 @@ export default function EachFeedDetail({ feed }: Props) {
         { id: feed.postId, contents: commentContents },
         {
           onSuccess: () => {
-            refetch().then(() => setCommentContents(''));
+            queryClient.invalidateQueries(['feed', String(feed.postId)]);
+            setCommentContents('');
           },
           onError: () => {
+            queryClient.invalidateQueries(['feed', String(feed.postId)]);
             alert('댓글 달기에 실패했습니다.');
           },
         }
