@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { fontStyle } from '../../../common/styles/FontStyle';
-import more from '../../../common/styles/assets/more.svg';
 import { useGetSocialList } from '../../../api/social';
+import more from '../../../common/styles/assets/more.svg';
 import SocialCard from '../SocialCard';
+import { CardListWrap, Header, SocialListWrap, Title } from './styles';
 
 interface SocialListProps {
   title: string;
@@ -18,10 +17,10 @@ export default function SocialList({ title, tab, kind, marginTop = 0, gap = 12, 
 
   return (
     <SocialListWrap marginTop={marginTop}>
-      <SocialListHeader onClick={onClickHeader}>
+      <Header onClick={onClickHeader}>
         <Title>{title}</Title>
         <img src={more} alt="more" />
-      </SocialListHeader>
+      </Header>
       <CardListWrap gap={gap}>
         {data?.map((social) => (
           <SocialCard key={social.id} social={social} />
@@ -30,28 +29,3 @@ export default function SocialList({ title, tab, kind, marginTop = 0, gap = 12, 
     </SocialListWrap>
   );
 }
-
-export const SocialListWrap = styled.div<{ marginTop: number }>`
-  display: flex;
-  flex-direction: column;
-  ${({ marginTop }) => `margin-top: ${marginTop}px`};
-`;
-export const SocialListHeader = styled.div`
-  height: 3rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  cursor: pointer;
-`;
-
-export const CardListWrap = styled.ul<{ gap: number }>`
-  display: flex;
-  flex-direction: column;
-  ${({ gap }) => `gap: ${gap}px`};
-`;
-
-export const Title = styled.span`
-  ${fontStyle(17, 'bold')}
-`;
